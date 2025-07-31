@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Around Tally</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E6F3FF 0%, #F0F8FF 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0F52BA 0%, #1E90FF 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #FF7F50;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            border: 3px solid white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 10px 0;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .question-section {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #0F52BA;
+            font-size: 1.1rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #87CEEB;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #0F52BA;
+            box-shadow: 0 0 10px rgba(15, 82, 186, 0.2);
+        }
+
+        #questionInput {
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        #answerOutput {
+            min-height: 120px;
+            background-color: #F0F8FF;
+            border: 2px solid #87CEEB;
+            color: #0F52BA;
+            font-weight: 500;
+            resize: vertical;
+            cursor: default;
+        }
+
+        .prediction-list {
+            background: white;
+            border: 2px solid #87CEEB;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+            position: static;
+        }
+
+        .prediction-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #E6F3FF;
+            transition: background-color 0.2s ease;
+            color: #333;
+        }
+
+        .prediction-item:hover {
+            background-color: #E6F3FF;
+            color: #0F52BA;
+        }
+
+        .prediction-item:last-child {
+            border-bottom: none;
+        }
+
+        .ask-button {
+            background: linear-gradient(135deg, #0F52BA 0%, #1E90FF 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(15, 82, 186, 0.3);
+        }
+
+        .ask-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 82, 186, 0.4);
+        }
+
+        .ask-button:active {
+            transform: translateY(0);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #0F52BA;
+            font-style: italic;
+        }
+
+        .error-message {
+            color: #FF4500;
+            background-color: #FFE4E1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .success-message {
+            color: #228B22;
+            background-color: #F0FFF0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .form-group input, .form-group textarea {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        /* Custom scrollbar for prediction list */
+        .prediction-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .prediction-list::-webkit-scrollbar-track {
+            background: #E6F3FF;
+        }
+
+        .prediction-list::-webkit-scrollbar-thumb {
+            background: #87CEEB;
+            border-radius: 4px;
+        }
+
+        .prediction-list::-webkit-scrollbar-thumb:hover {
+            background: #0F52BA;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">T</div>
+            <h1>Ask Around Tally</h1>
+        </div>
+        
+        <div class="content">
+            <div class="question-section">
+                <div class="form-group">
+                    <label for="questionInput">Ask Your Question:</label>
+                    <textarea 
+                        id="questionInput" 
+                        placeholder="Type your question here... (e.g., How to create a new company in Tally?)"
+                        autocomplete="off"
+                    ></textarea>
+                    <div id="predictionList" class="prediction-list"></div>
+                </div>
+                
+                <button id="askButton" class="ask-button" onclick="getAnswer()">
+                    Get Answer
+                </button>
+            </div>
+            
+            <div class="loading" id="loading">
+                Searching for your answer...
+            </div>
+            
+            <div class="form-group">
+                <label for="answerOutput">Answer:</label>
+                <textarea 
+                    id="answerOutput" 
+                    placeholder="Your answer will appear here..."
+                    readonly
+                ></textarea>
+            </div>
+            
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase configuration
+        const SUPABASE_URL = 'https://vjuvczgbxcxwifjgjpkv.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqdXZjemdieGN4d2lmamdqcGt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyODA2OTUsImV4cCI6MjA2Njg1NjY5NX0.ZohvZVAdkVn3Rcpeh03tP1uSxdPbgkwr8E0kcIoeoYE';
+
+        // Initialize Supabase client (you'll need to include the Supabase client library)
+        // For now, we'll use mock data and localStorage for demonstration
+        
+        // Mock data for demonstration (replace with actual Supabase queries)
+        const mockQAData = [
+            {
+                id: 1,
+                question: "How to create a new company in Tally?",
+                answer: "To create a new company in Tally: 1. Open Tally 2. Press Alt+F3 (Company Info menu) 3. Select 'Create Company' 4. Enter company details like name, address, financial year, etc. 5. Press Enter to save"
+            },
+            {
+                id: 2,
+                question: "How to create a ledger in Tally?",
+                answer: "To create a ledger: 1. Go to Gateway of Tally 2. Press Alt+G (Go To) 3. Select 'Accounts Info' 4. Choose 'Ledgers' 5. Select 'Create' 6. Enter ledger name and select appropriate group 7. Save the ledger"
+            },
+            {
+                id: 3,
+                question: "How to make a journal entry in Tally?",
+                answer: "To make journal entry: 1. Go to Gateway of Tally 2. Select 'Accounting Vouchers' 3. Press F7 for Journal voucher 4. Enter date 5. Select debit ledger and amount 6. Select credit ledger and amount 7. Add narration 8. Press Enter to save"
+            },
+            {
+                id: 4,
+                question: "How to generate balance sheet in Tally?",
+                answer: "To generate balance sheet: 1. From Gateway of Tally 2. Go to 'Display' menu 3. Select 'Account Books' 4. Choose 'Balance Sheet' 5. Select the period/date 6. The balance sheet will be displayed. You can print it using Alt+P"
+            },
+            {
+                id: 5,
+                question: "How to backup data in Tally?",
+                answer: "To backup Tally data: 1. Go to Gateway of Tally 2. Press Alt+F3 (Company Info) 3. Select 'Backup' 4. Choose the company to backup 5. Select backup location 6. Click 'Backup' button 7. The data will be backed up to selected location"
+            },
+            {
+                id: 6,
+                question: "How to restore backup in Tally?",
+                answer: "To restore backup: 1. From Gateway of Tally 2. Press Alt+F3 (Company Info) 3. Select 'Restore' 4. Browse and select the backup file 5. Choose restore location 6. Click 'Restore' 7. The company data will be restored"
+            }
+        ];
+
+        let currentQAData = [...mockQAData];
+        let debounceTimer = null;
+
+        // DOM elements
+        const questionInput = document.getElementById('questionInput');
+        const answerOutput = document.getElementById('answerOutput');
+        const predictionList = document.getElementById('predictionList');
+        const askButton = document.getElementById('askButton');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        // Event listeners
+        questionInput.addEventListener('input', handleQuestionInput);
+        questionInput.addEventListener('keydown', handleKeyDown);
+        questionInput.addEventListener('blur', hidePredictions);
+        document.addEventListener('click', handleDocumentClick);
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadQAData);
+
+        function loadQAData() {
+            // In a real implementation, this would fetch from Supabase
+            // For now, we'll use localStorage to persist data
+            const savedData = localStorage.getItem('tallyQAData');
+            if (savedData) {
+                try {
+                    currentQAData = JSON.parse(savedData);
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                    currentQAData = [...mockQAData];
+                }
+            } else {
+                // Save mock data to localStorage for persistence
+                localStorage.setItem('tallyQAData', JSON.stringify(mockQAData));
+            }
+        }
+
+        function handleQuestionInput(event) {
+            const query = event.target.value.trim();
+            
+            // Clear previous timer
+            if (debounceTimer) {
+                clearTimeout(debounceTimer);
+            }
+            
+            // Debounce the search to avoid too many queries
+            debounceTimer = setTimeout(() => {
+                if (query.length >= 2) {
+                    showPredictions(query);
+                } else {
+                    hidePredictions();
+                }
+            }, 300);
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                
+                // If there are visible predictions, select the first one
+                const visiblePredictions = predictionList.querySelectorAll('.prediction-item');
+                if (visiblePredictions.length > 0 && predictionList.style.display !== 'none') {
+                    selectPrediction(visiblePredictions[0]);
+                } else {
+                    getAnswer();
+                }
+            } else if (event.key === 'Escape') {
+                hidePredictions();
+            }
+        }
+
+        function showPredictions(query) {
+            const predictions = findSimilarQuestions(query);
+            
+            if (predictions.length === 0) {
+                hidePredictions();
+                return;
+            }
+
+            predictionList.innerHTML = '';
+            predictionList.style.display = 'block';
+
+            predictions.forEach(qa => {
+                const item = document.createElement('div');
+                item.className = 'prediction-item';
+                item.textContent = qa.question;
+                item.addEventListener('mousedown', (e) => {
+                    e.preventDefault(); // Prevent blur event
+                    selectPrediction(item, qa);
+                });
+                predictionList.appendChild(item);
+            });
+        }
+
+        function hidePredictions() {
+            setTimeout(() => {
+                predictionList.style.display = 'none';
+            }, 150);
+        }
+
+        function selectPrediction(item, qa = null) {
+            if (!qa) {
+                // Find the QA data based on the item text
+                qa = currentQAData.find(q => q.question === item.textContent);
+            }
+            
+            if (qa) {
+                questionInput.value = qa.question;
+                answerOutput.value = qa.answer;
+                hidePredictions();
+                showSuccessMessage('Answer found!');
+            }
+        }
+
+        function findSimilarQuestions(query) {
+            const queryWords = query.toLowerCase().split(' ').filter(word => word.length > 2);
+            
+            if (queryWords.length === 0) return [];
+
+            return currentQAData.filter(qa => {
+                const questionWords = qa.question.toLowerCase();
+                return queryWords.some(word => questionWords.includes(word));
+            }).slice(0, 5); // Limit to 5 predictions
+        }
+
+        async function getAnswer() {
+            const question = questionInput.value.trim();
+            
+            if (!question) {
+                showErrorMessage('Please enter a question');
+                return;
+            }
+
+            // Clear previous messages
+            hideMessages();
+            
+            // Show loading
+            loading.style.display = 'block';
+            askButton.disabled = true;
+
+            try {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Find exact or similar match
+                const exactMatch = currentQAData.find(qa => 
+                    qa.question.toLowerCase() === question.toLowerCase()
+                );
+
+                if (exactMatch) {
+                    answerOutput.value = exactMatch.answer;
+                    showSuccessMessage('Answer found!');
+                } else {
+                    // Find similar questions
+                    const similarQuestions = findSimilarQuestions(question);
+                    
+                    if (similarQuestions.length > 0) {
+                        answerOutput.value = similarQuestions[0].answer;
+                        showSuccessMessage('Similar answer found!');
+                    } else {
+                        answerOutput.value = 'Sorry, I couldn\'t find an answer to your question. Please try rephrasing your question or contact support for assistance.';
+                        showErrorMessage('No matching answer found');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error getting answer:', error);
+                showErrorMessage('Error retrieving answer. Please try again.');
+                answerOutput.value = '';
+            } finally {
+                // Hide loading
+                loading.style.display = 'none';
+                askButton.disabled = false;
+            }
+        }
+
+        function handleDocumentClick(event) {
+            if (!predictionList.contains(event.target) && event.target !== questionInput) {
+                hidePredictions();
+            }
+        }
+
+        function showErrorMessage(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        function showSuccessMessage(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        function hideMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        // Supabase integration functions (to be implemented)
+        async function fetchQAFromSupabase() {
+            // This would be implemented when you set up Supabase
+            /*
+            try {
+                const { data, error } = await supabase
+                    .from('qa_table')
+                    .select('*');
+                
+                if (error) throw error;
+                return data;
+            } catch (error) {
+                console.error('Error fetching data from Supabase:', error);
+                return [];
+            }
+            */
+        }
+
+        // Clear previous data function
+        function clearPreviousData() {
+            questionInput.value = '';
+            answerOutput.value = '';
+            hidePredictions();
+            hideMessages();
+        }
+
+        // Add a clear button functionality
+        function addClearButton() {
+            const clearButton = document.createElement('button');
+            clearButton.textContent = 'Clear';
+            clearButton.className = 'ask-button';
+            clearButton.style.marginLeft = '10px';
+            clearButton.onclick = clearPreviousData;
+            askButton.parentNode.appendChild(clearButton);
+        }
+
+        // Initialize clear button
+        document.addEventListener('DOMContentLoaded', addClearButton);
+    </script>
+</body>
+</html>
