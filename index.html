@@ -13,268 +13,291 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #E6F3FF 0%, #F0F8FF 100%);
+            background: #E8F1F5;
             min-height: 100vh;
+            font-size: 13px;
             padding: 20px;
         }
 
+        /* Container */
         .container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            border: 1px solid #B8C5CC;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 3px;
         }
 
-        .header {
-            background: linear-gradient(135deg, #0F52BA 0%, #1E90FF 100%);
+        /* Title Bar */
+        .title-bar {
+            background: linear-gradient( #003366 100%);
+            border-bottom: 1px solid #B8C5CC;
+            padding: 8px 15px;
+            font-size: 18px;
+            font-weight: bold;
             color: white;
-            padding: 20px;
-            text-align: center;
-            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .logo {
-            width: 60px;
-            height: 60px;
-            background: #357EC7;
-            border-radius: 50%;
+        .title-text {
+            display: flex;
+            align-items: center;
+        }
+
+        .tally-logo {
+            background: linear-gradient(to bottom, #4A7B96 0%, #3E6B82 100%);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 2px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 12px;
             font-weight: bold;
+            margin-right: 8px;
+            font-style: italic;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #5B9BD5;
+            cursor: pointer;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: #ff4444;
             color: white;
-            margin-bottom: 10px;
-            border: 3px solid white;
+            border-radius: 2px;
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            margin: 10px 0;
-        }
-
+        /* Main Content */
         .content {
-            padding: 30px;
-        }
-
-        .question-section {
-            margin-bottom: 20px;
+            padding: 20px;
+            background: #F8FAFB;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
             font-weight: bold;
-            margin-bottom: 8px;
-            color: #0F52BA;
-            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: #2E5266;
+            font-size: 14px;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #87CEEB;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 8px 10px;
+            border: 1px solid #B8C5CC;
+            border-radius: 2px;
+            font-size: 12px;
             font-family: inherit;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: white;
         }
 
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
-            border-color: #0F52BA;
-            box-shadow: 0 0 10px rgba(15, 82, 186, 0.2);
+            border-color: #4A7B96;
+            box-shadow: 0 0 3px rgba(74, 123, 150, 0.3);
         }
 
         #questionInput {
-            min-height: 60px;
+            min-height: 100px;
             resize: vertical;
         }
 
         #answerOutput {
-            min-height: 120px;
-            background-color: #F0F8FF;
-            border: 2px solid #87CEEB;
-            color: #0F52BA;
-            font-weight: 500;
+            min-height: 450px;
+            background-color: #FAFBFC;
+            border: 1px solid #B8C5CC;
+            color: #2E5266;
             resize: vertical;
             cursor: default;
         }
 
+        /* Prediction List */
         .prediction-list {
             background: white;
-            border: 2px solid #87CEEB;
+            border: 1px solid #B8C5CC;
             border-top: none;
-            border-radius: 0 0 8px 8px;
-            max-height: 200px;
+            max-height: 150px;
             overflow-y: auto;
-            z-index: 1000;
             display: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 5px;
-            position: static;
+            border-radius: 0 0 2px 2px;
         }
 
         .prediction-item {
-            padding: 12px;
+            padding: 10px 12px;
             cursor: pointer;
-            border-bottom: 1px solid #E6F3FF;
-            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #E8EDF1;
             color: #333;
+            font-size: 13px;
         }
 
         .prediction-item:hover {
-            background-color: #E6F3FF;
-            color: #0F52BA;
+            background-color: #E6F2FF;
+            color: #2E5266;
         }
 
         .prediction-item:last-child {
             border-bottom: none;
         }
 
-        .ask-button {
-            background: linear-gradient(135deg, #0F52BA 0%, #1E90FF 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
+        /* Buttons */
+        .button-group {
+            margin: 15px 0;
+        }
+
+        .tally-button {
+            background: linear-gradient(to bottom, #E6EDF1 0%, #D4E1E8 100%);
+            border: 1px solid #B8C5CC;
+            color: #2E5266;
+            padding: 8px 14px;
+            font-size: 13px;
             font-weight: bold;
-            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(15, 82, 186, 0.3);
+            border-radius: 2px;
+            margin-right: 8px;
         }
 
-        .ask-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(15, 82, 186, 0.4);
+        .tally-button:hover {
+            background: linear-gradient(to bottom, #D4E1E8 0%, #C5D4DB 100%);
         }
 
-        .ask-button:active {
-            transform: translateY(0);
+        .tally-button:active {
+            background: linear-gradient(to bottom, #C5D4DB 0%, #B6C9D1 100%);
         }
 
+        .tally-button.primary {
+            background: linear-gradient(to bottom, #4A7B96 0%, #3E6B82 100%);
+            color: white;
+            border-color: #36597A;
+        }
+
+        .tally-button.primary:hover {
+            background: linear-gradient(to bottom, #3E6B82 0%, #325A73 100%);
+        }
+
+        /* Loading and Messages */
         .loading {
             display: none;
             text-align: center;
-            padding: 20px;
-            color: #0F52BA;
+            padding: 15px;
+            color: #666;
             font-style: italic;
+            font-size: 13px;
+        }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 2px;
+            margin: 10px 0;
+            font-size: 13px;
+            display: none;
         }
 
         .error-message {
-            color: #FF4500;
-            background-color: #FFE4E1;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            display: none;
+            background-color: #FFF0F0;
+            border: 1px solid #FFB8B8;
+            color: #CC0000;
         }
 
         .success-message {
-            color: #228B22;
             background-color: #F0FFF0;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            display: none;
+            border: 1px solid #B8FFB8;
+            color: #008800;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
-                border-radius: 10px;
-            }
-
-            .header {
-                padding: 15px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .logo {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.8rem;
+                border-radius: 0;
             }
 
             .content {
                 padding: 15px;
             }
 
-            .form-group input, .form-group textarea {
-                font-size: 14px;
-                padding: 10px;
+            #questionInput {
+                min-height: 120px;
+            }
+
+            #answerOutput {
+                min-height: 240px;
             }
         }
 
-        /* Custom scrollbar for prediction list */
+        /* Custom scrollbar */
         .prediction-list::-webkit-scrollbar {
-            width: 8px;
+            width: 12px;
         }
 
         .prediction-list::-webkit-scrollbar-track {
-            background: #E6F3FF;
+            background: #F0F4F7;
         }
 
         .prediction-list::-webkit-scrollbar-thumb {
-            background: #87CEEB;
-            border-radius: 4px;
+            background: #C5D0D6;
+            border-radius: 2px;
         }
 
         .prediction-list::-webkit-scrollbar-thumb:hover {
-            background: #0F52BA;
+            background: #B8C5CC;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">T</div>
-            <h1>Ask Around Tally</h1>
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div class="title-text">
+                <div class="tally-logo">T</div>
+                Ask Around Tally (Help Mode)
+            </div>
+            <button class="close-btn">×</button>
         </div>
-        
+
+        <!-- Main Content -->
         <div class="content">
-            <div class="question-section">
-                <div class="form-group">
-                    <label for="questionInput">Ask Your Question:</label>
-                    <textarea 
-                        id="questionInput" 
-                        placeholder="Type your question here... (e.g., How to create a new company in Tally?)"
-                        autocomplete="off"
-                    ></textarea>
-                    <div id="predictionList" class="prediction-list"></div>
-                </div>
-                
-                <button id="askButton" class="ask-button" onclick="getAnswer()">
+            <div class="form-group">
+                <label for="questionInput">Ask Your Question:</label>
+                <textarea 
+                    id="questionInput" 
+                    placeholder="Type your Tally question here... (e.g., How to create a new company in Tally?)"
+                    autocomplete="off"
+                ></textarea>
+                <div id="predictionList" class="prediction-list"></div>
+            </div>
+            
+            <div class="button-group">
+                <button id="askButton" class="tally-button primary" onclick="getAnswer()">
                     Get Answer
                 </button>
+                <button class="tally-button" onclick="clearForm()">
+                    Clear
+                </button>
             </div>
-            
+
             <div class="loading" id="loading">
-                Searching for your answer...
+                Searching Tally knowledge base...
             </div>
-            
+
             <div class="form-group">
                 <label for="answerOutput">Answer:</label>
                 <textarea 
@@ -283,55 +306,66 @@
                     readonly
                 ></textarea>
             </div>
-            
-            <div id="errorMessage" class="error-message"></div>
-            <div id="successMessage" class="success-message"></div>
+
+            <div id="errorMessage" class="message error-message"></div>
+            <div id="successMessage" class="message success-message"></div>
         </div>
     </div>
 
     <script>
-        // Supabase configuration
-        const SUPABASE_URL = 'https://vjuvczgbxcxwifjgjpkv.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqdXZjemdieGN4d2lmamdqcGt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyODA2OTUsImV4cCI6MjA2Njg1NjY5NX0.ZohvZVAdkVn3Rcpeh03tP1uSxdPbgkwr8E0kcIoeoYE';
-
-        // Initialize Supabase client (you'll need to include the Supabase client library)
-        // For now, we'll use mock data and localStorage for demonstration
-        
-        // Mock data for demonstration (replace with actual Supabase queries)
-        const mockQAData = [
+        // Mock Tally Q&A Data
+        const tallyQAData = [
             {
                 id: 1,
                 question: "How to create a new company in Tally?",
-                answer: "To create a new company in Tally: 1. Open Tally 2. Press Alt+F3 (Company Info menu) 3. Select 'Create Company' 4. Enter company details like name, address, financial year, etc. 5. Press Enter to save"
+                answer: "To create a new company in Tally Prime:\n\n1. From Gateway of Tally, press Alt+F3 or click Company Info\n2. Select 'Create Company'\n3. Enter Company Name\n4. Enter Company Address details\n5. Set Financial Year From date\n6. Select Currency Symbol (₹ for Indian Rupees)\n7. Enable 'Maintain accounts only' if you don't need inventory\n8. Press Enter to save\n\nThe new company will be created and you'll be taken to the Gateway of Tally for that company.",
+                keywords: "create company new setup"
             },
             {
                 id: 2,
                 question: "How to create a ledger in Tally?",
-                answer: "To create a ledger: 1. Go to Gateway of Tally 2. Press Alt+G (Go To) 3. Select 'Accounts Info' 4. Choose 'Ledgers' 5. Select 'Create' 6. Enter ledger name and select appropriate group 7. Save the ledger"
+                answer: "To create a ledger in Tally Prime:\n\n1. Go to Gateway of Tally\n2. Press Alt+G (Go To) > Create Master > Ledger\n   OR\n   Select 'Masters' > 'Accounts Info' > 'Ledgers' > 'Create'\n3. Enter Ledger Name\n4. Select appropriate Group (e.g., Sundry Debtors for customers)\n5. Enter Opening Balance if any\n6. Set other details like Address, Contact info\n7. Press Enter to save\n\nThe ledger will be created and available for transactions.",
+                keywords: "create ledger accounts master"
             },
             {
                 id: 3,
-                question: "How to make a journal entry in Tally?",
-                answer: "To make journal entry: 1. Go to Gateway of Tally 2. Select 'Accounting Vouchers' 3. Press F7 for Journal voucher 4. Enter date 5. Select debit ledger and amount 6. Select credit ledger and amount 7. Add narration 8. Press Enter to save"
+                question: "How to pass a journal entry in Tally?",
+                answer: "To pass a journal entry in Tally Prime:\n\n1. From Gateway of Tally, select 'Vouchers'\n2. Press F7 or select 'Journal'\n3. Enter/verify the Date\n4. In Debit section:\n   - Select the ledger to be debited\n   - Enter the amount\n5. In Credit section:\n   - Select the ledger to be credited\n   - Enter the amount\n6. Add Narration (description of transaction)\n7. Press Enter to save\n\nEnsure Debit = Credit for the voucher to be saved successfully.",
+                keywords: "journal entry voucher pass"
             },
             {
                 id: 4,
-                question: "How to generate balance sheet in Tally?",
-                answer: "To generate balance sheet: 1. From Gateway of Tally 2. Go to 'Display' menu 3. Select 'Account Books' 4. Choose 'Balance Sheet' 5. Select the period/date 6. The balance sheet will be displayed. You can print it using Alt+P"
+                question: "How to view Balance Sheet in Tally?",
+                answer: "To view Balance Sheet in Tally Prime:\n\n1. From Gateway of Tally\n2. Select 'Display' menu\n3. Choose 'Financial Statements'\n4. Select 'Balance Sheet'\n   OR\n   Press Alt+G > Display > Account Books > Balance Sheet\n\n5. Select the period/date for which you want to view\n6. The Balance Sheet will be displayed\n\nYou can:\n- Press Alt+P to print\n- Press Alt+E to export to Excel\n- Press Esc to go back",
+                keywords: "balance sheet view display financial statement"
             },
             {
                 id: 5,
-                question: "How to backup data in Tally?",
-                answer: "To backup Tally data: 1. Go to Gateway of Tally 2. Press Alt+F3 (Company Info) 3. Select 'Backup' 4. Choose the company to backup 5. Select backup location 6. Click 'Backup' button 7. The data will be backed up to selected location"
+                question: "How to backup company data in Tally?",
+                answer: "To backup company data in Tally Prime:\n\n1. From Gateway of Tally, press Alt+F3 (Company Info)\n2. Select 'Backup'\n3. Select the company you want to backup\n4. Choose backup destination:\n   - Local Drive (C:, D:, etc.)\n   - External Drive (USB, etc.)\n   - Network location\n5. Click 'Backup' button\n6. Wait for backup completion\n\nRecommended: Take regular backups, especially before major changes or year-end processing.",
+                keywords: "backup data company save"
             },
             {
                 id: 6,
-                question: "How to restore backup in Tally?",
-                answer: "To restore backup: 1. From Gateway of Tally 2. Press Alt+F3 (Company Info) 3. Select 'Restore' 4. Browse and select the backup file 5. Choose restore location 6. Click 'Restore' 7. The company data will be restored"
+                question: "How to restore company data in Tally?",
+                answer: "To restore company data in Tally Prime:\n\n1. From Gateway of Tally, press Alt+F3 (Company Info)\n2. Select 'Restore'\n3. Browse and select the backup file (.zip or .bak)\n4. Choose restore location (usually Tally data folder)\n5. Click 'Restore' button\n6. Wait for restoration to complete\n7. The company will appear in your company list\n\nNote: Restoring will create a new company from backup. Original data remains unchanged.",
+                keywords: "restore backup data recovery"
+            },
+            {
+                id: 7,
+                question: "How to create a purchase voucher in Tally?",
+                answer: "To create a purchase voucher in Tally Prime:\n\n1. From Gateway of Tally, select 'Vouchers'\n2. Press F9 or select 'Purchase'\n3. Enter/verify the Date\n4. Select Party (Supplier) ledger\n5. Enter purchase details:\n   - Item/Stock details (if inventory enabled)\n   - Quantity and Rate\n   - Add taxes (CGST, SGST, IGST if applicable)\n6. Verify total amount\n7. Add Narration if needed\n8. Press Enter to save\n\nThe purchase will be recorded and stock will be updated automatically.",
+                keywords: "purchase voucher buy supplier"
+            },
+            {
+                id: 8,
+                question: "How to generate GSTR-1 in Tally?",
+                answer: "To generate GSTR-1 in Tally Prime:\n\n1. Ensure GST is enabled and configured\n2. From Gateway of Tally, go to 'Display'\n3. Select 'Statutory Reports' > 'GST'\n4. Choose 'GSTR-1'\n5. Select the return period (month/quarter)\n6. Select the company\n7. The GSTR-1 report will be displayed\n8. Verify all sales transactions\n9. You can:\n   - Generate JSON file for upload\n   - Print the report\n   - Export to Excel\n\nEnsure all sales invoices are properly recorded with correct GST details.",
+                keywords: "gstr-1 gst return generate"
             }
         ];
 
-        let currentQAData = [...mockQAData];
+        let currentQAData = [...tallyQAData];
         let debounceTimer = null;
 
         // DOM elements
@@ -343,41 +377,25 @@
         const errorMessage = document.getElementById('errorMessage');
         const successMessage = document.getElementById('successMessage');
 
-        // Event listeners
-        questionInput.addEventListener('input', handleQuestionInput);
-        questionInput.addEventListener('keydown', handleKeyDown);
-        questionInput.addEventListener('blur', hidePredictions);
-        document.addEventListener('click', handleDocumentClick);
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+        });
 
-        // Load data on page load
-        document.addEventListener('DOMContentLoaded', loadQAData);
-
-        function loadQAData() {
-            // In a real implementation, this would fetch from Supabase
-            // For now, we'll use localStorage to persist data
-            const savedData = localStorage.getItem('tallyQAData');
-            if (savedData) {
-                try {
-                    currentQAData = JSON.parse(savedData);
-                } catch (e) {
-                    console.error('Error loading saved data:', e);
-                    currentQAData = [...mockQAData];
-                }
-            } else {
-                // Save mock data to localStorage for persistence
-                localStorage.setItem('tallyQAData', JSON.stringify(mockQAData));
-            }
+        function setupEventListeners() {
+            questionInput.addEventListener('input', handleQuestionInput);
+            questionInput.addEventListener('keydown', handleKeyDown);
+            questionInput.addEventListener('blur', hidePredictions);
+            document.addEventListener('click', handleDocumentClick);
         }
 
         function handleQuestionInput(event) {
             const query = event.target.value.trim();
             
-            // Clear previous timer
             if (debounceTimer) {
                 clearTimeout(debounceTimer);
             }
             
-            // Debounce the search to avoid too many queries
             debounceTimer = setTimeout(() => {
                 if (query.length >= 2) {
                     showPredictions(query);
@@ -391,7 +409,6 @@
             if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault();
                 
-                // If there are visible predictions, select the first one
                 const visiblePredictions = predictionList.querySelectorAll('.prediction-item');
                 if (visiblePredictions.length > 0 && predictionList.style.display !== 'none') {
                     selectPrediction(visiblePredictions[0]);
@@ -419,7 +436,7 @@
                 item.className = 'prediction-item';
                 item.textContent = qa.question;
                 item.addEventListener('mousedown', (e) => {
-                    e.preventDefault(); // Prevent blur event
+                    e.preventDefault();
                     selectPrediction(item, qa);
                 });
                 predictionList.appendChild(item);
@@ -434,7 +451,6 @@
 
         function selectPrediction(item, qa = null) {
             if (!qa) {
-                // Find the QA data based on the item text
                 qa = currentQAData.find(q => q.question === item.textContent);
             }
             
@@ -452,9 +468,12 @@
             if (queryWords.length === 0) return [];
 
             return currentQAData.filter(qa => {
-                const questionWords = qa.question.toLowerCase();
-                return queryWords.some(word => questionWords.includes(word));
-            }).slice(0, 5); // Limit to 5 predictions
+                const questionText = qa.question.toLowerCase();
+                const keywordText = qa.keywords.toLowerCase();
+                return queryWords.some(word => 
+                    questionText.includes(word) || keywordText.includes(word)
+                );
+            }).slice(0, 5);
         }
 
         async function getAnswer() {
@@ -465,18 +484,13 @@
                 return;
             }
 
-            // Clear previous messages
             hideMessages();
-            
-            // Show loading
             loading.style.display = 'block';
             askButton.disabled = true;
 
             try {
-                // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await new Promise(resolve => setTimeout(resolve, 800));
                 
-                // Find exact or similar match
                 const exactMatch = currentQAData.find(qa => 
                     qa.question.toLowerCase() === question.toLowerCase()
                 );
@@ -485,14 +499,13 @@
                     answerOutput.value = exactMatch.answer;
                     showSuccessMessage('Answer found!');
                 } else {
-                    // Find similar questions
                     const similarQuestions = findSimilarQuestions(question);
                     
                     if (similarQuestions.length > 0) {
                         answerOutput.value = similarQuestions[0].answer;
                         showSuccessMessage('Similar answer found!');
                     } else {
-                        answerOutput.value = 'Sorry, I couldn\'t find an answer to your question. Please try rephrasing your question or contact support for assistance.';
+                        answerOutput.value = 'Sorry, I couldn\'t find an answer to your question.\n\nPlease try:\n• Rephrasing your question\n• Using different keywords\n• Contacting support for assistance';
                         showErrorMessage('No matching answer found');
                     }
                 }
@@ -502,10 +515,16 @@
                 showErrorMessage('Error retrieving answer. Please try again.');
                 answerOutput.value = '';
             } finally {
-                // Hide loading
                 loading.style.display = 'none';
                 askButton.disabled = false;
             }
+        }
+
+        function clearForm() {
+            questionInput.value = '';
+            answerOutput.value = '';
+            hidePredictions();
+            hideMessages();
         }
 
         function handleDocumentClick(event) {
@@ -534,45 +553,6 @@
             errorMessage.style.display = 'none';
             successMessage.style.display = 'none';
         }
-
-        // Supabase integration functions (to be implemented)
-        async function fetchQAFromSupabase() {
-            // This would be implemented when you set up Supabase
-            /*
-            try {
-                const { data, error } = await supabase
-                    .from('qa_table')
-                    .select('*');
-                
-                if (error) throw error;
-                return data;
-            } catch (error) {
-                console.error('Error fetching data from Supabase:', error);
-                return [];
-            }
-            */
-        }
-
-        // Clear previous data function
-        function clearPreviousData() {
-            questionInput.value = '';
-            answerOutput.value = '';
-            hidePredictions();
-            hideMessages();
-        }
-
-        // Add a clear button functionality
-        function addClearButton() {
-            const clearButton = document.createElement('button');
-            clearButton.textContent = 'Clear';
-            clearButton.className = 'ask-button';
-            clearButton.style.marginLeft = '10px';
-            clearButton.onclick = clearPreviousData;
-            askButton.parentNode.appendChild(clearButton);
-        }
-
-        // Initialize clear button
-        document.addEventListener('DOMContentLoaded', addClearButton);
     </script>
 </body>
 </html>
